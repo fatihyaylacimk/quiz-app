@@ -1,42 +1,29 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
+
+// middleware
 app.use(cors());
 app.use(express.json());
 
-// IN-MEMORY DATA
-let users = [];
-let scores = [];
-
-// REGISTER
-app.post("/register", (req, res) => {
-    const { username, password } = req.body;
-    if (users.find(u => u.username === username)) {
-        return res.json({ success: false, message: "User exists" });
-    }
-    users.push({ username, password });
-    res.json({ success: true });
+// 🔹 Örnek API (test için)
+app.get("/api", (req, res) => {
+  res.json({ message: "API çalışıyor 🚀" });
 });
 
-// LOGIN
-app.post("/login", (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-    if (!user) return res.json({ success: false });
-    res.json({ success: true });
+// 🔹 CLIENT (frontend) serve et
+app.use(express.static(path.join(__dirname, "../client")));
+
+// 🔹 tüm route'ları index.html'e yönlendir
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
-// SAVE SCORE (XP bazlı)
-app.post("/score", (req, res) => {
-    const { name, score } = req.body;
-    scores.push({ name, score });
-    res.json({ success: true });
-});
+// 🔹 PORT AYARI (Render için zorunlu)
+const PORT = process.env.PORT || 5000;
 
-// GET SCORES (desc)
-app.get("/scores", (req, res) => {
-    res.json(scores.sort((a, b) => b.score - a.score));
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
-
-app.listen(5000, () => console.log("Server running on port 5000"));
