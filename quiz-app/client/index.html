@@ -6,40 +6,14 @@
 </head>
 <body>
 
-<h2>Quiz App</h2>
+<h2>Sınav Uygulaması</h2>
 
-<button onclick="toggleDark()">Dark Mode</button>
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
 
-<div>
-    <button onclick="setDifficulty('easy')">Easy</button>
-    <button onclick="setDifficulty('hard')">Hard</button>
-</div>
+<button onclick="register()">Kayıt olmak</button>
+<button onclick="login()">Giriş yapmak</button>
 
-<!-- AUTH -->
-<div id="auth">
-    <input id="user" placeholder="username">
-    <input id="pass" type="password" placeholder="password">
-    <button onclick="register()">Register</button>
-    <button onclick="login()">Login</button>
-</div>
-
-<!-- QUIZ -->
-<div id="quiz" style="display:none;">
-    <h3 id="timer"></h3>
-    <h2 id="question"></h2>
-    <div id="answers"></div>
-    <button onclick="next()">Next</button>
-    <h3 id="score"></h3>
-    <h3 id="rank"></h3>
-</div>
-
-<!-- LEADERBOARD -->
-<h3>Leaderboard</h3>
-<ul id="leaderboard"></ul>
-
-<canvas id="chart"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 
 </body>
